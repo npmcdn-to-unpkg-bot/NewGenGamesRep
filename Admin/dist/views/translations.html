@@ -1,0 +1,18 @@
+<div class="custom-block">
+    <div class="navigation">
+        <div [routerLink]="['Games']" class="item" [class.active]="'Игры' === selectedItem" (click)="onSelect('Игры')">
+            <span>Игры</span>
+        </div>
+        <div [routerLink]="['Services']" class="item" [class.active]="'Услуги' === selectedItem" (click)="onSelect('Услуги')">
+            <span>Услуги</span>
+        </div>
+        <div class="item">
+            <span>Контакты</span>
+        </div>
+        <div class="item">
+            <span>Интерфейс</span>
+        </div>
+    </div>
+    
+    <router-outlet></router-outlet>
+</div>

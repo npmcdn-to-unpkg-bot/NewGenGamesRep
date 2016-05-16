@@ -1,0 +1,24 @@
+@import 'variables.scss';
+
+.sidebar {
+    width: $sidebar-width;
+    background-color: $primary-color-bg-dark;
+    color: #fff;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    .head {
+        height: $top-menu-height;
+        background-color: $primary-color-active;
+        overflow: hidden;
+        
+        p {
+            margin: 0;
+            text-align: center;
+            font-size: 2.5em;
+            text-transform: uppercase;
+        }
+    }
+}

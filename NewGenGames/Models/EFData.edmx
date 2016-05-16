@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="NewGenGamesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BoxArt" Type="nvarchar" MaxLength="500" />
+          <Property Name="ReleaseDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Games_Platforms">
+          <Key>
+            <PropertyRef Name="GameID" />
+            <PropertyRef Name="PlatformID" />
+          </Key>
+          <Property Name="GameID" Type="int" Nullable="false" />
+          <Property Name="PlatformID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GamesInfo">
+          <Key>
+            <PropertyRef Name="GameID" />
+            <PropertyRef Name="LangID" />
+          </Key>
+          <Property Name="GameID" Type="int" Nullable="false" />
+          <Property Name="LangID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Langs">
+          <Key>
+            <PropertyRef Name="LangID" />
+          </Key>
+          <Property Name="LangID" Type="int" Nullable="false" />
+          <Property Name="LangTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Platforms">
+          <Key>
+            <PropertyRef Name="PlatformID" />
+          </Key>
+          <Property Name="PlatformID" Type="int" Nullable="false" />
+          <Property Name="PlatformTitle" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Videos">
+          <Key>
+            <PropertyRef Name="VideoID" />
+          </Key>
+          <Property Name="VideoID" Type="int" Nullable="false" />
+          <Property Name="VideoURL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GameID" Type="int" Nullable="false" />
+          <Property Name="LangID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Games_Platforms_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Games_Platforms" Type="Self.Games_Platforms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games_Platforms">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Platforms_Platforms">
+          <End Role="Platforms" Type="Self.Platforms" Multiplicity="1" />
+          <End Role="Games_Platforms" Type="Self.Games_Platforms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Platforms">
+              <PropertyRef Name="PlatformID" />
+            </Principal>
+            <Dependent Role="Games_Platforms">
+              <PropertyRef Name="PlatformID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesInfo_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="GamesInfo" Type="Self.GamesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesInfo">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesInfo_Langs">
+          <End Role="Langs" Type="Self.Langs" Multiplicity="1" />
+          <End Role="GamesInfo" Type="Self.GamesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Langs">
+              <PropertyRef Name="LangID" />
+            </Principal>
+            <Dependent Role="GamesInfo">
+              <PropertyRef Name="LangID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Videos_GamesInfo">
+          <End Role="GamesInfo" Type="Self.GamesInfo" Multiplicity="1" />
+          <End Role="Videos" Type="Self.Videos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GamesInfo">
+              <PropertyRef Name="GameID" />
+              <PropertyRef Name="LangID" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="GameID" />
+              <PropertyRef Name="LangID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NewGenGamesModelStoreContainer">
+          <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Games_Platforms" EntityType="Self.Games_Platforms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GamesInfo" EntityType="Self.GamesInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Langs" EntityType="Self.Langs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Platforms" EntityType="Self.Platforms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Games_Platforms_Games" Association="Self.FK_Games_Platforms_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Games_Platforms" EntitySet="Games_Platforms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Platforms_Platforms" Association="Self.FK_Games_Platforms_Platforms">
+            <End Role="Platforms" EntitySet="Platforms" />
+            <End Role="Games_Platforms" EntitySet="Games_Platforms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesInfo_Games" Association="Self.FK_GamesInfo_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesInfo" EntitySet="GamesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesInfo_Langs" Association="Self.FK_GamesInfo_Langs">
+            <End Role="Langs" EntitySet="Langs" />
+            <End Role="GamesInfo" EntitySet="GamesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Videos_GamesInfo" Association="Self.FK_Videos_GamesInfo">
+            <End Role="GamesInfo" EntitySet="GamesInfo" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NewGenGamesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CodeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GamesInfoes" Relationship="Self.FK_GamesInfo_Games" FromRole="Games" ToRole="GamesInfo" />
+          <NavigationProperty Name="Platforms" Relationship="Self.Games_Platforms" FromRole="Games" ToRole="Platforms" />
+          <Property Name="BoxArt" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="GamesInfo">
+          <Key>
+            <PropertyRef Name="GameID" />
+            <PropertyRef Name="LangID" />
+          </Key>
+          <Property Name="GameID" Type="Int32" Nullable="false" />
+          <Property Name="LangID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="Self.FK_GamesInfo_Games" FromRole="GamesInfo" ToRole="Games" />
+          <NavigationProperty Name="Lang" Relationship="Self.FK_GamesInfo_Langs" FromRole="GamesInfo" ToRole="Langs" />
+          <NavigationProperty Name="Videos" Relationship="Self.FK_Videos_GamesInfo" FromRole="GamesInfo" ToRole="Videos" />
+        </EntityType>
+        <EntityType Name="Lang">
+          <Key>
+            <PropertyRef Name="LangID" />
+          </Key>
+          <Property Name="LangID" Type="Int32" Nullable="false" />
+          <Property Name="LangTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GamesInfoes" Relationship="Self.FK_GamesInfo_Langs" FromRole="Langs" ToRole="GamesInfo" />
+        </EntityType>
+        <EntityType Name="Platform">
+          <Key>
+            <PropertyRef Name="PlatformID" />
+          </Key>
+          <Property Name="PlatformID" Type="Int32" Nullable="false" />
+          <Property Name="PlatformTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Self.Games_Platforms" FromRole="Platforms" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="Video">
+          <Key>
+            <PropertyRef Name="VideoID" />
+          </Key>
+          <Property Name="VideoID" Type="Int32" Nullable="false" />
+          <Property Name="VideoURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GameID" Type="Int32" Nullable="false" />
+          <Property Name="LangID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GamesInfo" Relationship="Self.FK_Videos_GamesInfo" FromRole="Videos" ToRole="GamesInfo" />
+        </EntityType>
+        <Association Name="FK_GamesInfo_Games">
+          <End Role="Games" Type="Self.Game" Multiplicity="1" />
+          <End Role="GamesInfo" Type="Self.GamesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GamesInfo">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GamesInfo_Langs">
+          <End Role="Langs" Type="Self.Lang" Multiplicity="1" />
+          <End Role="GamesInfo" Type="Self.GamesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Langs">
+              <PropertyRef Name="LangID" />
+            </Principal>
+            <Dependent Role="GamesInfo">
+              <PropertyRef Name="LangID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Videos_GamesInfo">
+          <End Role="GamesInfo" Type="Self.GamesInfo" Multiplicity="1" />
+          <End Role="Videos" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GamesInfo">
+              <PropertyRef Name="GameID" />
+              <PropertyRef Name="LangID" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="GameID" />
+              <PropertyRef Name="LangID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Games_Platforms">
+          <End Role="Games" Type="Self.Game" Multiplicity="*" />
+          <End Role="Platforms" Type="Self.Platform" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="NewGenGamesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Games" EntityType="Self.Game" />
+          <EntitySet Name="GamesInfoes" EntityType="Self.GamesInfo" />
+          <EntitySet Name="Langs" EntityType="Self.Lang" />
+          <EntitySet Name="Platforms" EntityType="Self.Platform" />
+          <EntitySet Name="Videos" EntityType="Self.Video" />
+          <AssociationSet Name="FK_GamesInfo_Games" Association="Self.FK_GamesInfo_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GamesInfo" EntitySet="GamesInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GamesInfo_Langs" Association="Self.FK_GamesInfo_Langs">
+            <End Role="Langs" EntitySet="Langs" />
+            <End Role="GamesInfo" EntitySet="GamesInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Videos_GamesInfo" Association="Self.FK_Videos_GamesInfo">
+            <End Role="GamesInfo" EntitySet="GamesInfoes" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="Games_Platforms" Association="Self.Games_Platforms">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Platforms" EntitySet="Platforms" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NewGenGamesModelStoreContainer" CdmEntityContainer="NewGenGamesEntities">
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="NewGenGamesModel.Game">
+              <MappingFragment StoreEntitySet="Games">
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="BoxArt" ColumnName="BoxArt" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CodeName" ColumnName="CodeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GamesInfoes">
+            <EntityTypeMapping TypeName="NewGenGamesModel.GamesInfo">
+              <MappingFragment StoreEntitySet="GamesInfo">
+                <ScalarProperty Name="GameID" ColumnName="GameID" />
+                <ScalarProperty Name="LangID" ColumnName="LangID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Langs">
+            <EntityTypeMapping TypeName="NewGenGamesModel.Lang">
+              <MappingFragment StoreEntitySet="Langs">
+                <ScalarProperty Name="LangID" ColumnName="LangID" />
+                <ScalarProperty Name="LangTitle" ColumnName="LangTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Platforms">
+            <EntityTypeMapping TypeName="NewGenGamesModel.Platform">
+              <MappingFragment StoreEntitySet="Platforms">
+                <ScalarProperty Name="PlatformID" ColumnName="PlatformID" />
+                <ScalarProperty Name="PlatformTitle" ColumnName="PlatformTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Videos">
+            <EntityTypeMapping TypeName="NewGenGamesModel.Video">
+              <MappingFragment StoreEntitySet="Videos">
+                <ScalarProperty Name="VideoID" ColumnName="VideoID" />
+                <ScalarProperty Name="VideoURL" ColumnName="VideoURL" />
+                <ScalarProperty Name="GameID" ColumnName="GameID" />
+                <ScalarProperty Name="LangID" ColumnName="LangID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Games_Platforms" TypeName="NewGenGamesModel.Games_Platforms" StoreEntitySet="Games_Platforms">
+            <EndProperty Name="Games">
+              <ScalarProperty Name="ID" ColumnName="GameID" />
+            </EndProperty>
+            <EndProperty Name="Platforms">
+              <ScalarProperty Name="PlatformID" ColumnName="PlatformID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

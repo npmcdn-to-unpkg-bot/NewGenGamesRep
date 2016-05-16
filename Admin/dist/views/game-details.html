@@ -1,0 +1,52 @@
+<form *ngIf="active" (ngSubmit)="saveGame()" #heroForm="ngForm">
+    <div class="game-details" *ngIf="game">
+
+        <div class="boxart-block block">
+            <img *ngIf="game.BoxArt" [src]="config.boxesURL + game.BoxArt" alt="">
+            <img [hidden]="game.BoxArt" src="../content/images/default-box-art.jpg" alt="">
+            <div class="file-input-block">
+                <div class="custom-button">Загрузить новую</div>
+                <input type="file" (change)="onFileInputChange($event)" />
+            </div>
+            <hr>
+            <p>Жанры, платформы...</p>
+        </div>
+
+
+
+        <div class="form-block block">
+            <h2>Общая информация об игре</h2>
+            <input id="GameId" type="hidden" value="{{game.GameId}}">
+            <div class="groups">
+                <div class="input-group">
+                    <label for="CodeName">Рабочее название игры</label>
+                    <input [(ngModel)]="game.CodeName" ngControl="CodeName" type="text" required placeholder="Название игры" #CodeName="ngForm">
+                    <small>Используется для идентификации игры</small><br/>
+                    <small class="error" [hidden]="CodeName.valid || CodeName.pristine">Данное поле обязательно для заполнения!</small>
+                </div>
+                <div class="input-group">
+                    <label for="ReleaseDate">Дата выпуска игры</label>
+                    <input [(ngModel)]="game.ReleaseDate" ngControl="ReleaseDate" type="text" required placeholder="Дата выхода (06.09.1993)"
+                        #ReleaseDate="ngForm">
+                    <small>Дата официального релиза игры</small><br/>
+                    <small class="error" [hidden]="ReleaseDate.valid || ReleaseDate.pristine">Данное поле обязательно для заполнения!</small>
+                </div>
+            </div><br>
+
+            <div class="custom-buttons-group">
+                <div class="custom-button" *ngFor="let lang of languages" [class.active]="lang.LangId === selectedLanguage" (click)="selectLanguage(lang)">{{lang.LangTitle}}</div>
+            </div>
+
+            <div *ngFor="let local of game.Localizations;">
+                <localization-form [localization]="local" [hidden]="selectedLanguage != local.LangId" (deleteLocalization)="deleteLocalization(local.LangId)"></localization-form>
+            </div>
+
+            <div style="text-align:center; margin-top: 40px;">
+                <button class="custom-button blue big" [disabled]="!heroForm.form.valid">Сохранить изменения</button>
+            </div>
+
+        </div>
+
+
+    </div>
+</form>

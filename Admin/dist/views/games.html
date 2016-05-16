@@ -1,0 +1,6 @@
+<div class="games-block block">
+    <div *ngFor="let game of games" id="{{game.GameId}}" class="game-item" (click)="gotoDetail(game.GameId)">
+        <img [src]="config.boxesURL + game.BoxArt" alt="">
+        <span class="game-title">{{game.CodeName}}</span>
+    </div>
+</div>

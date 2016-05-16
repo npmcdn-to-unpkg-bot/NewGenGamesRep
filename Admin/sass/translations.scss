@@ -1,0 +1,58 @@
+@import 'variables.scss';
+
+.custom-block {
+    max-width: 1200px;
+    margin: 20px;
+    border-radius: 4px;
+
+    .navigation {
+        background-color: #fff;
+        border: 1px solid #ebebeb;
+        display: flex;
+        -ms-flex-flow: row nowrap;
+        -webkit-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        -ms-align-content: space-between;
+        -webkit-align-content: space-between;
+        align-content: space-between;
+        margin-bottom: 20px;
+
+        .item {
+            width: 100%;
+            padding: 15px 0 15px 0;
+            text-align: center;
+            cursor: pointer;
+            color: #7d7d7d;
+            position: relative;
+
+            &:after {
+                content: '';
+                height: 35px;
+                border-right: 1px solid #e1e1e1;
+                position: absolute;
+                right: 0;
+            }
+
+            &:last-child:after {
+                display: none;
+            }
+
+            &:hover {
+                border-bottom: 3px solid $primary-color-active--hover;
+            }
+
+            &.active {
+                border-bottom: 3px solid $primary-color-active;
+
+                span {
+                    color: #000;
+                }
+            }
+
+            span {
+                font-size: 1.3em;
+            }
+        }
+    }
+}

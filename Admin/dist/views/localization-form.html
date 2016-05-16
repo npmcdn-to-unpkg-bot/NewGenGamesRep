@@ -1,0 +1,17 @@
+<div class="localization" >
+    <div style="margin-bottom: 20px;" class="input-group">
+        <label for="GameTitle">Название игры</label>
+        <input type="text" required placeholder="Название игры" [(ngModel)]="localization.GameTitle"  #GameTitle="ngForm">
+
+        <small class="error" [hidden]="GameTitle.valid || GameTitle.pristine">Данное поле обязательно для заполнения!</small>
+
+    </div>
+    <div  class="input-group">
+        <label style="margin-bottom: 10px;" for="Description">Описание игры</label>
+        <textarea [(ngModel)]="localization.Description" rows="5" required placeholder="Здесь будет крутой wysiwyg редактор, а пока..." style="resize: vertical;" #Description="ngForm"></textarea>
+
+        <small class="error" [hidden]="Description.valid || Description.pristine">Данное поле обязательно для заполнения!</small>
+    </div>
+    
+    <div class="custom-button small" (click)="onDelete()">Удалить локализацию</div>
+</div>

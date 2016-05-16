@@ -1,0 +1,211 @@
+@font-face {
+    font-family: "OpenSansRegular";
+    src: url("../content/fonts/OpenSansRegular/OpenSansRegular.eot");
+    src: url("../content/fonts/OpenSansRegular/OpenSansRegular.eot?#iefix")format("embedded-opentype"),
+    url("../content/fonts/OpenSansRegular/OpenSansRegular.woff") format("woff"),
+    url("../content/fonts/OpenSansRegular/OpenSansRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "OpenSansLight";
+    src: url("../content/fonts/OpenSansLight/OpenSansLight.eot");
+    src: url("../content/fonts/OpenSansLight/OpenSansLight.eot?#iefix")format("embedded-opentype"),
+    url("../content/fonts/OpenSansLight/OpenSansLight.woff") format("woff"),
+    url("../content/fonts/OpenSansLight/OpenSansLight.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "OpenSansItalic";
+    src: url("../content/fonts/OpenSansItalic/OpenSansItalic.eot");
+    src: url("../content/fonts/OpenSansItalic/OpenSansItalic.eot?#iefix")format("embedded-opentype"),
+    url("../content/fonts/OpenSansItalic/OpenSansItalic.woff") format("woff"),
+    url("../content/fonts/OpenSansItalic/OpenSansItalic.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "OpenSansBold";
+    src: url("../content/fonts/OpenSansBold/OpenSansBold.eot");
+    src: url("../content/fonts/OpenSansBold/OpenSansBold.eot?#iefix")format("embedded-opentype"),
+    url("../content/fonts/OpenSansBold/OpenSansBold.woff") format("woff"),
+    url("../content/fonts/OpenSansBold/OpenSansBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "OpenSansExtraBold";
+    src: url("../content/fonts/OpenSansExtraBold/OpenSansExtraBold.eot");
+    src: url("../content/fonts/OpenSansExtraBold/OpenSansExtraBold.eot?#iefix")format("embedded-opentype"),
+    url("../content/fonts/OpenSansExtraBold/OpenSansExtraBold.woff") format("woff"),
+    url("../content/fonts/OpenSansExtraBold/OpenSansExtraBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@import 'variables.scss';
+
+html, body {
+    width: 100%;
+    height: 100%;
+    //background-color: #f1f4f8;
+    background-color: $primary-color-bg;
+    font-family: OpenSansRegular;
+    overflow-x: hidden;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #fff, #525252, #fff);
+    margin: 15px 0;
+}
+
+input[type="text"], input[type="date"], textarea {
+    font-family: OpenSansRegular;
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    outline: none;
+    
+    padding: 10px;
+    border: solid 1px #dcdcdc;
+    border-radius: 3px;
+    transition: box-shadow 0.3s;
+    
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 5px 1px #CCF2FF;
+    }
+}
+
+//Стилизация input'а для загрузки файлов (да, всё так плохо!)
+.file-input-block {
+    position: relative;
+    
+    input[type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 26px;
+        opacity: 0;
+        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+        width: 100%;
+    }
+}
+
+.ng-valid[required] {
+  border-left: 5px solid $primary-color-active;
+}
+
+.ng-invalid[required] {
+  border-left: 5px solid $primary-color-attaention;
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+label {
+    font-family: OpenSansLight;
+    font-size: .9em;
+}
+
+small {
+    font-size: .7em;
+    color: #737373;
+    
+    &.error {
+        color: $primary-color-attaention;
+    }
+}
+
+.custom-button {
+    font-family: OpenSansRegular;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(102,102,102);
+    background-color: #F5F5F5;
+    padding: 8px 15px;
+    font-size: 13px;
+    border: 1px solid #D6D6D6;
+    outline: none;
+    border-radius: 4px;
+    
+    &:hover, &.active {
+        background-color: #D9D9D9;
+        border: 1px solid #BFBFBF
+    }
+    
+    &.big {
+        padding: 11px 19px;
+        font-size: 16px;
+    }
+    
+    &.small {
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+    
+    &.blue {
+        //background-color: #538fbe;
+        background-color: $primary-color-active;
+        border: 1px solid $primary-color-active--hover;
+        color: #fff;
+        
+        &:hover, &.active {
+            background-color: $primary-color-active--hover;
+        }
+    }
+    
+    &.attention {
+        //background-color: #538fbe;
+        background-color: $primary-color-attaention;
+        border: 1px solid $primary-color-attaention--hover;
+        color: #fff;
+        
+        &:hover, &.active {
+            background-color: $primary-color-attaention--hover;
+        }
+    }
+    
+    &:disabled {
+        color: #949494;
+        background-color: #F5F5F5;
+        border: 1px solid #D6D6D6;
+        cursor: not-allowed;
+        
+        &:hover {
+            background-color: #F5F5F5;
+        }
+    }
+}
+
+.custom-buttons-group {
+    text-align: center;
+    
+    .custom-button {
+        border-radius: 0;
+        border-right: none !important;
+        &:first-child {
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+        &:last-child {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-right: 1px solid #D6D6D6 !important;
+        }
+    }
+}
+
+.block {
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+}

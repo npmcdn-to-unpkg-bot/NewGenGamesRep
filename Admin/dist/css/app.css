@@ -1,0 +1,15 @@
+.main-container {
+  width: 100%;
+  height: 100%; }
+  .main-container .content-area {
+    padding-top: 60px;
+    margin-left: 200px; }
+    .main-container .content-area .top-menu {
+      position: fixed;
+      top: 0;
+      left: 200px;
+      width: 100%;
+      height: 60px;
+      background-color: #353942;
+      z-index: 100;
+      box-shadow: 0 1px 10px 2px rgba(0, 0, 0, 0.1); }
